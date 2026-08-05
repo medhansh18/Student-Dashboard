@@ -29,6 +29,11 @@ public class AssignmentController {
         return assignmentRepository.findById(id).orElseThrow();
     }
 
+    @GetMapping("/course/{courseId}")
+    public List<Assignment> getAssignmentsByCourse(@PathVariable Long courseId) {
+        return assignmentRepository.findByCourseId(courseId);
+    }
+
     @PutMapping("/{id}")
     public Assignment updateAssignment(@PathVariable Long id, @RequestBody Assignment updated) {
         Assignment assignment = assignmentRepository.findById(id).orElseThrow();

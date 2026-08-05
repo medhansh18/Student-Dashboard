@@ -29,6 +29,15 @@ public class AssignmentController {
         return assignmentRepository.findById(id).orElseThrow();
     }
 
+    @PutMapping("/{id}")
+    public Assignment updateAssignment(@PathVariable Long id, @RequestBody Assignment updated) {
+        Assignment assignment = assignmentRepository.findById(id).orElseThrow();
+        assignment.setTitle(updated.getTitle());
+        assignment.setDueDate(updated.getDueDate());
+        assignment.setCompleted(updated.isCompleted());
+        return assignmentRepository.save(assignment);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteAssignment(@PathVariable Long id) {
         assignmentRepository.deleteById(id);

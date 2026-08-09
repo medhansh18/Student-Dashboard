@@ -15,7 +15,7 @@ const roleDetails = {
   },
 }
 
-function HomePage() {
+function HomePage({ onSelectRole }) {
   const [selectedRole, setSelectedRole] = useState(() => {
     if (typeof window === 'undefined') return ''
 
@@ -30,6 +30,13 @@ function HomePage() {
       window.history.replaceState(null, '', window.location.pathname)
     }
   }, [selectedRole])
+
+  const handleRoleChoice = (role) => {
+    setSelectedRole(role)
+    if (onSelectRole) {
+      onSelectRole(role)
+    }
+  }
 
   const currentRole = selectedRole ? roleDetails[selectedRole] : null
 
@@ -65,13 +72,13 @@ function HomePage() {
             </p>
 
             <div className="role-grid">
-              <button type="button" className="role-card" onClick={() => setSelectedRole('student')}>
+              <button type="button" className="role-card" onClick={() => handleRoleChoice('student')}>
                 <span className="role-icon">🎓</span>
                 <h2>I’m a student</h2>
                 <p>View classes, assignments, and progress in one place.</p>
               </button>
 
-              <button type="button" className="role-card" onClick={() => setSelectedRole('teacher')}>
+              <button type="button" className="role-card" onClick={() => handleRoleChoice('teacher')}>
                 <span className="role-icon">🧑‍🏫</span>
                 <h2>I’m a teacher</h2>
                 <p>Manage lessons, students, and classroom updates quickly.</p>
